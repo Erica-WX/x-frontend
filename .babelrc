@@ -4,6 +4,11 @@
       ["@babel/preset-env", { "modules": false }]
     ],
     "plugins": [
-      "@babel/plugin-syntax-dynamic-import"
+      "@babel/plugin-syntax-dynamic-import",
+      ["import", {
+        "libraryName": "antd",
+        "libraryDirectory": "es",
+        "style": "css"   //加载 less 文件
+      }]
     ]
   }
