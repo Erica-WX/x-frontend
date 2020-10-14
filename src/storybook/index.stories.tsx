@@ -8,6 +8,7 @@ import { withViewport } from '@storybook/addon-viewport';
 import { addDecorator, storiesOf } from '@storybook/react';
 import React, { Component } from 'react';
 import { Button } from '../components/common/button'; // 这里引入你想展示的组件
+import { InputText } from '../components/common/input/text';
 
 addDecorator((storyFn, context) => withConsole()(storyFn)(context));
 addDecorator(withViewport());
@@ -21,4 +22,67 @@ storiesOf('Common Components', module)
       size="small"
       disabled={boolean('disabled', false)}
     >Button</Button>,
-  );
+  )
+  .add('InputText', () =>
+  (React.createElement(class extends React.Component<{}, { value:string, value2:string }> {
+    public state = {
+      value: '',
+      value2: '',
+    };
+    public render() {
+      const placeholderCentered = boolean('placeholderCentered', true);
+      const withLabel = boolean('withLabel', true);
+      return (
+        <div>
+          <p>type: default</p>
+          <InputText
+            label={withLabel ? <i className="fa fa-search" /> : null}
+            value={this.state.value}
+            placeholder="placeholder"
+            placeholderCentered={placeholderCentered}
+            style={{
+              height: '30px',
+            }}
+            onChange={(value) => {
+              this.setState({
+                value,
+              });
+            }}
+            onConfirm={() =>
+              console.log('onConfirm')
+            }
+            onClick={() =>
+              console.log('onClick')
+            }
+            onKeyDown={() =>
+              console.log('onKeyDown')
+            }
+          />
+          <br/>
+          <p>type: wide</p>
+          <InputText
+            value={this.state.value2}
+            placeholder="placeholder"
+            styleType="wide"
+            info="here goes some info msg"
+            warning="here goes some warnings"
+            onChange={(value2) => {
+              this.setState({
+                value2,
+              });
+            }}
+            onConfirm={() =>
+              console.log('onConfirm')
+            }
+            onClick={() =>
+              console.log('onClick')
+            }
+            onKeyDown={() =>
+              console.log('onKeyDown')
+            }
+          />
+        </div>);
+    }
+  })),
+  )
+  ;
